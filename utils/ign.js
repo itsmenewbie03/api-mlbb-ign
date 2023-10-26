@@ -22,9 +22,9 @@ const get_ign_smile = async (id, server) => {
     })
         .then(res => res.json())
 
-    const ign = data.username ?? false
+    const ign = data.username ?? null
     console.log(`DEBUG: smile api returned ${ign} because data is ${JSON.stringify(data)}`)
-
+    return ign
 }
 const get_ign_coda = async (id, server) => {
     console.log('DEBUG: code api called')
@@ -50,7 +50,7 @@ const get_ign_coda = async (id, server) => {
         body: `voucherPricePoint.id=266837&voucherPricePoint.price=6.5&voucherPricePoint.variablePrice=0&n=3%2F20%2F2023-1144&email=&userVariablePrice=0&order.data.profile=eyJuYW1lIjoiICIsImRhdGVvZmJpcnRoIjoiIiwiaWRfbm8iOiIifQ%3D%3D&user.userId=${id}&user.zoneId=${server}&msisdn=&voucherTypeName=MOBILE_LEGENDS&voucherTypeId=5&gvtId=19&shopLang=en_PH&checkoutId=fed4d612-ab4e-4b37-8743-bf3bac58e5d1&affiliateTrackingId=&impactClickId=&anonymousId=d5d3316f-2037-4754-b2e1-471550679b9d&fullUrl=https%3A%2F%2Fwww.codashop.com%2Fen-ph%2Fmobile-legends&userSessionId=4e0873ba-0de2-40a5-ab68-3cbf286b72d3&userEmailConsent=false&userMobileConsent=false&verifiedMsisdn=&promoId=&promoCode=`
     })
         .then(res => res.json())
-    const ign = data.confirmationFields?.username.replace(/\+/g, ' ') ?? false
+    const ign = data.confirmationFields?.username.replace(/\+/g, ' ') ?? null
     console.log(`DEBUG: coda api returned ${ign} because data is ${JSON.stringify(data)}`)
     return ign ? decodeURIComponent(ign) : ign
 }
@@ -85,7 +85,7 @@ const get_ign_jolly = async (id, server) => {
         })
     })
         .then(res => res.json())
-    const ign = resp?.data?.nickName ?? false
+    const ign = resp?.data?.nickName ?? null
     console.log(`DEBUG: jolly api returned ${ign} because data is ${JSON.stringify(resp)}`)
     return ign
 }
