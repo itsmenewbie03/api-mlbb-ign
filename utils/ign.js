@@ -1,3 +1,33 @@
+const get_ign_elite_dias = async (id, server) => {
+    console.log(`DEBUG: elite_dias api called`)
+    const resp = await fetch("https://api.elitedias.com/checkid", {
+        "headers": {
+            "accept": "*/*",
+            "accept-language": "en-US,en;q=0.9",
+            "access-control-allow-header": "*",
+            "access-control-allow-headers": "x-requested-with",
+            "access-control-allow-origin": "*",
+            "content-type": "application/json; charset=UTF-8",
+            "pragma": "no-cache",
+            "sec-ch-ua": "\"Chromium\";v=\"118\", \"Google Chrome\";v=\"118\", \"Not=A?Brand\";v=\"99\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-site",
+            "x-requested-with": "XMLHttpRequest"
+        },
+        "referrer": "https://elitedias.com/",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "body": JSON.stringify({ "userid": id, "serverid": server, "game": "mlbb" }),
+        "method": "POST",
+        "mode": "cors",
+        "credentials": "omit"
+    }).then(res => res.json())
+    const ign = resp?.name ?? null
+    console.log(`DEBUG: elite_dias api returned ${ign} because data is ${JSON.stringify(resp)}`)
+    return ign
+}
 const get_ign_smile = async (id, server) => {
     console.log('DEBUG: smile api called')
     const data = await fetch('https://www.smile.one/ph/merchant/mobilelegends/checkrole/', {
@@ -27,7 +57,7 @@ const get_ign_smile = async (id, server) => {
     return ign
 }
 const get_ign_coda = async (id, server) => {
-    console.log('DEBUG: code api called')
+    console.log('DEBUG: coda api called')
     const data = await fetch('https://order-sg.codashop.com/initPayment.action', {
         method: 'POST',
         headers: {
@@ -90,6 +120,7 @@ const get_ign_jolly = async (id, server) => {
     return ign
 }
 const get_ign = async (id, server) => {
-    return await get_ign_jolly(id, server) ?? await get_ign_coda(id, server) ?? await get_ign_smile(id, server)
+    return await get_ign_elite_dias(id, server) ?? await get_ign_coda(id, server) ?? await get_ign_smile(id, server) ?? await get_ign_jolly(id, server)
 }
+console.log(await get_ign("1140033417", "11295"))
 export { get_ign }
