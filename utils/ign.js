@@ -23,7 +23,8 @@ const get_ign_elite_dias = async (id, server) => {
         "method": "POST",
         "mode": "cors",
         "credentials": "omit"
-    }).then(res => res.json())
+    }).then(res => res.json()).catch(err => { return { "name": null } })
+
     const ign = resp?.name ?? null
     console.log(`DEBUG: elite_dias api returned ${ign} because data is ${JSON.stringify(resp)}`)
     return ign
@@ -122,5 +123,4 @@ const get_ign_jolly = async (id, server) => {
 const get_ign = async (id, server) => {
     return await get_ign_elite_dias(id, server) ?? await get_ign_coda(id, server) ?? await get_ign_smile(id, server) ?? await get_ign_jolly(id, server)
 }
-console.log(await get_ign("1140033417", "11295"))
 export { get_ign }
