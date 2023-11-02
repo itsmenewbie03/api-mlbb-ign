@@ -90,6 +90,6 @@ const get_ign_jolly = async (id, server) => {
     return ign
 }
 const get_ign = async (id, server) => {
-    return await get_ign_smile(id, server) ?? await get_ign_coda(id, server) ?? await get_ign_jolly(id, server)
+    return await get_ign_jolly(id, server) ?? await get_ign_coda(id, server) ?? await get_ign_smile(id, server)
 }
 export { get_ign }
