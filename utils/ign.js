@@ -59,28 +59,26 @@ const get_ign_smile = async (id, server) => {
 }
 const get_ign_coda = async (id, server) => {
     console.log('DEBUG: coda api called')
-    const data = await fetch('https://order-sg.codashop.com/initPayment.action', {
-        method: 'POST',
-        headers: {
-            'authority': 'order-sg.codashop.com',
-            'accept': 'application/json, text/plain, */*',
-            'accept-language': 'en-PH',
-            'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            'origin': 'https://www.codashop.com',
-            'referer': 'https://www.codashop.com/',
-            'sec-ch-ua': '"Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111"',
-            'sec-ch-ua-mobile': '?0',
-            'sec-ch-ua-platform': '"Windows"',
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'same-site',
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
-            'x-session-country2name': 'PH',
-            'x-xsrf-token': 'null'
+    const data = await fetch("https://order-sg.codashop.com/initPayment.action", {
+        "headers": {
+            "accept": "application/json, text/plain, */*",
+            "accept-language": "en-PH",
+            "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "sec-ch-ua": "\"Chromium\";v=\"118\", \"Google Chrome\";v=\"118\", \"Not=A?Brand\";v=\"99\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-site",
+            "x-session-country2name": "PH",
+            "x-session-key": "",
+            "x-xsrf-token": "null"
         },
-        body: `voucherPricePoint.id=266837&voucherPricePoint.price=6.5&voucherPricePoint.variablePrice=0&n=3%2F20%2F2023-1144&email=&userVariablePrice=0&order.data.profile=eyJuYW1lIjoiICIsImRhdGVvZmJpcnRoIjoiIiwiaWRfbm8iOiIifQ%3D%3D&user.userId=${id}&user.zoneId=${server}&msisdn=&voucherTypeName=MOBILE_LEGENDS&voucherTypeId=5&gvtId=19&shopLang=en_PH&checkoutId=fed4d612-ab4e-4b37-8743-bf3bac58e5d1&affiliateTrackingId=&impactClickId=&anonymousId=d5d3316f-2037-4754-b2e1-471550679b9d&fullUrl=https%3A%2F%2Fwww.codashop.com%2Fen-ph%2Fmobile-legends&userSessionId=4e0873ba-0de2-40a5-ab68-3cbf286b72d3&userEmailConsent=false&userMobileConsent=false&verifiedMsisdn=&promoId=&promoCode=`
-    })
-        .then(res => res.json())
+        "referrer": "https://www.codashop.com/",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "body": `voucherPricePoint.id=266843&voucherPricePoint.price=6.5&voucherPricePoint.variablePrice=0&n=11%2F4%2F2023-1355&email=&userVariablePrice=0&order.data.profile=eyJuYW1lIjoiICIsImRhdGVvZmJpcnRoIjoiIiwiaWRfbm8iOiIifQ%3D%3D&user.userId=${id}&user.zoneId=${server}&msisdn=&voucherTypeName=MOBILE_LEGENDS&voucherTypeId=5&gvtId=19&shopLang=en_PH&checkoutId=08b87b79-741b-4bcd-bdb7-1e521b2eafe7&affiliateTrackingId=&impactClickId=&anonymousId=&fullUrl=https%3A%2F%2Fwww.codashop.com%2Fen-ph%2Fmobile-legends&userSessionId=0867ac99-e8ed-4378-a383-f7121d44c4f5&userEmailConsent=false&userMobileConsent=false&verifiedMsisdn=&promoId=&promoCode=&clevertapId=`,
+        "method": "POST",
+    }).then(res => res.json())
     const ign = data.confirmationFields?.username.replace(/\+/g, ' ') ?? null
     console.log(`DEBUG: coda api returned ${ign} because data is ${JSON.stringify(data)}`)
     return ign ? decodeURIComponent(ign) : ign
